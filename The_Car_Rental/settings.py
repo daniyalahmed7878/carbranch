@@ -27,7 +27,6 @@ DEBUG = True
 
 '''ALLOWED_HOSTS = ['thecarrental.site']
 '''
-# ALLOWED_HOSTS = []
 
 # Application definition
 
