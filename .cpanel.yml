@@ -1,5 +1,0 @@
-# ---
-# deployment:
-#   tasks:
-#     - export DEPLOYPATH=/home/thecarre/repositories/carbranch
-#     - /bin/cp * $DEPLOYPATH
