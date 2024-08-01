@@ -25,13 +25,18 @@ SECRET_KEY = 'django-insecure-b86s0n^!i&n1%$(*3owf%$+5r&grdari4#zc@=3hsw)k+yp3+e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-'''ALLOWED_HOSTS = ['thecarrental.site']
-'''
+# '''ALLOWED_HOSTS = ['thecarrental.site']
+# '''
 
+<<<<<<< HEAD
+=======
+ALLOWED_HOSTS = []
+
+>>>>>>> b196ab01c6209779364597e8d1c677d4a7f359ea
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    # 'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 
 ]
 

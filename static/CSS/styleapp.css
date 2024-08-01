@@ -880,13 +880,13 @@ color: var(--black-color);
 }
 
 
-.driving-excellence-counter-section .content .About-us-link {
+.driving-excellence-About-counter-section .content .Our-Cars-link {
   padding-top: 30px;
   
 }
 
 
-.driving-excellence-counter-section .content .About-us-link a{
+.driving-excellence-About-counter-section .content .Our-Cars-link a{
   text-align: center;
   font-family: var(--secondary-font);
   font-weight: 400;
@@ -900,7 +900,7 @@ color: var(--black-color);
 }
 
 
-.driving-excellence-counter-section .content .About-us-link a span{
+.driving-excellence-About-counter-section .content .Our-Cars-link a span{
   padding-left: 20px;
   color: var(--buttons-and-icons-color1);
 
@@ -1809,151 +1809,8 @@ color: var(--black-color);
 
 
 
-/* 2) ABOUT PAGE */
 
 
-/* About-Hero-Section */
-
-
-
-.About-Hero-Section-image {
-  position: relative;
-
-}
-
-.About-Hero-Section-image img {
-  width: 100%;
-  object-fit: cover;
-  height: 100%;
-}
-
-.About-image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Adjust opacity here */
-}
-
-.About-Hero-Section-Image-Content{
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  
-}
-
-.About-Hero-Section-Image-Content .content{
-  padding: 10px 0;
-
-}
-
-
-
-
-.About-Hero-Section-Image-Content h2{
-  font-family: var(--main-font);
-  font-size: 60px;
-  color: var(--white-color);
-}
-
-.About-Hero-Section-Image-Content p{
-  font-family: var(--secondary-font);
-  font-size: 20px;
-  color: var(--white-color);
-  font-weight: 300;
-  font-style: normal;
-  text-align: center;
-
-}
-
-
-@media (max-width: 2000px) {
-  .About-Hero-Section-Image-Content{
-    top: 18%;   
-  }
-
-}
-
-@media (max-width: 1800px) {
-  .About-Hero-Section-Image-Content{
-    top: 16%;   
-  }
-
-}
-@media (max-width: 1690px) {
-  .About-Hero-Section-Image-Content{
-    top: 14%;   
-  }
-  .About-Hero-Section-Image-Content h2{
-    font-size: 45px;
-  }
-  .About-Hero-Section-Image-Content p{
-    font-size: 15px;
-  }
-
-
-}
-
-
-@media (max-width: 1350px) {
-  .About-Hero-Section-Image-Content h2{
-    font-size: 35px;
-  }
-  .About-Hero-Section-Image-Content p{
-    font-size: 12px;
-  }
-
-}
-
-@media (max-width: 1300px) {
-  .About-Hero-Section-Image-Content{
-    top: 12%;   
-  }
-
-  .About-Hero-Section-Image-Content h2{
-    font-size: 30px;
-  }
-  .About-Hero-Section-Image-Content p{
-    font-size: 12px;
-  }
-
-}
-
-@media (max-width: 1050px) {
-  .About-Hero-Section-Image-Content{
-    top: 10%;   
-  }
-
-  .About-Hero-Section-Image-Content h2{
-    font-size: 25px;
-  }
-  .About-Hero-Section-Image-Content p{
-    font-size: 12px;
-  }
-
-}
-
-@media (max-width: 950px) {
-  .About-Hero-Section-Image-Content{
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-  .About-Hero-Section-Image-Content h2{
-    font-size: 40px;
-    color: var(--black-color);
-  }
-  
-  .About-Hero-Section-Image-Content p{
-    font-size: 18px;
-    color: var(--black-color);
-    text-align: left;
-  
-  }
-
-}
 
 
 
@@ -1974,6 +1831,7 @@ color: var(--black-color);
   width: 100%;
   object-fit: cover;
   height: 100%;
+  background-color: var(--black-color);
 }
 
 .Login-image-overlay {
@@ -2178,6 +2036,7 @@ color: var(--black-color);
   width: 100%;
   object-fit: cover;
   height: 100%;
+  background-color: var(--black-color);
 }
 
 .Create-Account-image-overlay {
@@ -2451,6 +2310,7 @@ color: var(--black-color);
   width: 100%;
   object-fit: cover;
   height: 100%;
+  background-color: var(--black-color);
 }
 
 .FAQ-image-overlay {
@@ -2605,6 +2465,7 @@ color: var(--black-color);
   width: 100%;
   object-fit: cover;
   height: 100%;
+  background-color: var(--black-color);
 }
 
 .Our-Cars-image-overlay {
@@ -3219,6 +3080,7 @@ color: var(--black-color);
   width: 100%;
   object-fit: cover;
   height: 100%;
+  background-color: var(--black-color);
 }
 
 .Car-Detail-image-overlay {
@@ -3570,6 +3432,7 @@ color: var(--black-color);
   width: 100%;
   object-fit: cover;
   height: 100%;
+  background-color: var(--black-color);
 }
 
 .Contact-image-overlay {
@@ -3921,6 +3784,7 @@ textarea {
   width: 100%;
   object-fit: cover;
   height: 100%;
+  background-color: var(--black-color);
 }
 
 .Blog-image-overlay {
