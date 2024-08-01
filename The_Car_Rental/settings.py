@@ -28,15 +28,12 @@ DEBUG = True
 # '''ALLOWED_HOSTS = ['thecarrental.site']
 # '''
 
-<<<<<<< HEAD
-=======
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['thecarrental.site']
 
->>>>>>> b196ab01c6209779364597e8d1c677d4a7f359ea
 # Application definition
 
 INSTALLED_APPS = [
-    # 'jazzmin',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 
 ]
 
