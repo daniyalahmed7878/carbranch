@@ -103,6 +103,16 @@ DATABASES = {
         # 'HOST': 'localhost',              # Or an IP Address that your MySQL is hosted on
         # 'PORT': '3306',
 
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'thecarre_car_rental',     # Replace with your MySQL database name
+        # 'DATABASE': 'thecarre_car_rental',
+        # 'USER': 'thecarre_car_rental_test',    # Replace with your MySQL username
+        # 'PASSWORD': 'u3kLBYGT@6Yv',# Replace with your MySQL password
+        # 'HOST': 'localhost',              # Or an IP Address that your MySQL is hosted on
+        # 'PORT': '3306',
+
+
+
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'thecarre_car_rental',     # Replace with your MySQL database name
         'DATABASE': 'thecarre_car_rental',
@@ -110,6 +120,7 @@ DATABASES = {
         'PASSWORD': 'u3kLBYGT@6Yv',# Replace with your MySQL password
         'HOST': 'localhost',              # Or an IP Address that your MySQL is hosted on
         'PORT': '3306',
+
         
     }
 }
