@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['thecarrental.site']
 CART_SESSION_ID = 'cart'
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
