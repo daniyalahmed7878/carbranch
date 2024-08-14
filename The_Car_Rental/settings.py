@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-b86s0n^!i&n1%$(*3owf%$+5r&grdari4#zc@=3hsw)k+yp3+e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['thecarrental.site']
+=======
+ALLOWED_HOSTS = []
+
+CART_SESSION_ID = 'cart'
+
+>>>>>>> e880a5d43d8cdbd202acdf64bc059c17e28affbf
 
 # Application definition
 
@@ -51,6 +58,7 @@ INSTALLED_APPS = [
     'About_Counter_Description',
     'Book_Your_Drive_Section',
     'Questions_About_Payment',
+    'cart',
 
 
 ]
@@ -79,6 +87,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'cart.context_processor.cart_total_amount',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
