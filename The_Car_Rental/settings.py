@@ -76,6 +76,7 @@ MIDDLEWARE = [
 
 ]
 
+
 ROOT_URLCONF = 'The_Car_Rental.urls'
 
 TEMPLATES = [
