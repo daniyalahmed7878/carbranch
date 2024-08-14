@@ -75,7 +75,6 @@ MIDDLEWARE = [
     'The_Car_Rental.middleware.Custom404Middleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
-
 ]
 
 ROOT_URLCONF = 'The_Car_Rental.urls'
