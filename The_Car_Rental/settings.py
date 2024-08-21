@@ -131,7 +131,6 @@ DATABASES = {
         'HOST': 'localhost',              # Or an IP Address that your MySQL is hosted on
         'PORT': '3306',
 
-        
     }
 }
 
