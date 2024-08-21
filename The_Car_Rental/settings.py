@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['thecarrental.site']
 CART_SESSION_ID = 'cart'
 
 
-# Application definition
+# Application definition\
 
 INSTALLED_APPS = [
     'jazzmin',
