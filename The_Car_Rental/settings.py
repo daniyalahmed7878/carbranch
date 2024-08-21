@@ -26,9 +26,9 @@ SECRET_KEY = 'django-insecure-b86s0n^!i&n1%$(*3owf%$+5r&grdari4#zc@=3hsw)k+yp3+e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['thecarrental.site']
+# ALLOWED_HOSTS = ['thecarrental.site']
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CART_SESSION_ID = 'cart'
 
@@ -102,8 +102,8 @@ WSGI_APPLICATION = 'The_Car_Rental.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
 
         # 'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'car_rental',     # Replace with your MySQL database name
