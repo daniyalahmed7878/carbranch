@@ -174,7 +174,7 @@ def reservationPage(request, id):
         "One_Car": Car_1,
         "current_id_2": int(id)
     }
-    return render(request, 'Reservation.html', Data) 
+    return render(request, 'reservation.html', Data) 
 
 
 
