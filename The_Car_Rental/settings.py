@@ -31,8 +31,6 @@ ALLOWED_HOSTS = ['thecarrental.site']
 
 # ALLOWED_HOSTS = ['*']
 
-
-
 # ALLOWED_HOSTS = []
 
 
