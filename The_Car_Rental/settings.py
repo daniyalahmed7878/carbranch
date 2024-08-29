@@ -125,8 +125,6 @@ DATABASES = {
         # 'PORT': '3306',
 
 
-
-
         # 'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'thecarre_car_rental',     # Replace with your MySQL database name
         # 'DATABASE': 'thecarre_car_rental',
