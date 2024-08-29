@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['thecarrental.site']
 
 # ALLOWED_HOSTS = []
 
-
 CART_SESSION_ID = 'cart'
 
 
