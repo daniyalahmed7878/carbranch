@@ -335,3 +335,16 @@ def cart_detail(request):
 
 
 
+
+
+def successPage(request):
+    return render(request, 'Success.html')
+
+
+
+
+def cancelPage(request):
+    return render(request, 'Cancel.html')
+
+
+

@@ -4165,7 +4165,7 @@ textarea {
 .checkout-Page .btn-continue {
     width: 100%;
     padding: 15px;
-    background-color: #ff3c00;
+    background-color: var(--buttons-and-icons-color1);
     color: white;
     border: none;
     border-radius: 5px;
@@ -4173,8 +4173,10 @@ textarea {
     cursor: pointer;
 }
 
+
 .checkout-Page .btn-continue:hover {
     background-color: #d63400;
+
 }
 
 
