@@ -27,11 +27,11 @@ SECRET_KEY = 'django-insecure-b86s0n^!i&n1%$(*3owf%$+5r&grdari4#zc@=3hsw)k+yp3+e
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['thecarrental.site']
+# ALLOWED_HOSTS = ['thecarrental.site']
 
 # ALLOWED_HOSTS = ['*']
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 CART_SESSION_ID = 'cart'
 
@@ -76,7 +76,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'The_Car_Rental.middleware.Custom404Middleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 
@@ -107,8 +107,8 @@ WSGI_APPLICATION = 'The_Car_Rental.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
 
         # 'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'car_rental',     # Replace with your MySQL database name
@@ -137,13 +137,13 @@ DATABASES = {
 
 
 
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'thecarre_car_rental',     # Replace with your MySQL database name
-        'DATABASE': 'thecarre_car_rental',
-        'USER': 'thecarre_car_rental_test',    # Replace with your MySQL username
-        'PASSWORD': 'u3kLBYGT@6Yv',# Replace with your MySQL password
-        'HOST': 'localhost',              # Or an IP Address that your MySQL is hosted on
-        'PORT': '3306',
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'thecarre_car_rental',     # Replace with your MySQL database name
+        # 'DATABASE': 'thecarre_car_rental',
+        # 'USER': 'thecarre_car_rental_test',    # Replace with your MySQL username
+        # 'PASSWORD': 'u3kLBYGT@6Yv',# Replace with your MySQL password
+        # 'HOST': 'localhost',              # Or an IP Address that your MySQL is hosted on
+        # 'PORT': '3306',
 
 
     }
