@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='cars',
+            model_name='CARS',
             name='stock',
             field=models.IntegerField(null=True),
         ),
