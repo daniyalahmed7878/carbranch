@@ -327,8 +327,6 @@ def Single_postPage(request, id):
 
 
 
-
-
 def cart_add(request, id):
     cart = Cart(request)
     product = CARS.objects.get(id=id)
