@@ -30,3 +30,4 @@ class CARS(models.Model):
     class Meta:
         verbose_name = ""  # Singular name
         verbose_name_plural = "Our Cars"  # Plural name (same as singular, to avoid pluralization)
+
