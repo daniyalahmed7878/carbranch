@@ -194,7 +194,6 @@ def reservationPage(request, id):
     }
     return render(request, 'reservation.html', Data) 
 
-
 def checkoutPage(request):
     cart= Cart(request)
     bookings_total = 0
@@ -212,6 +211,11 @@ def checkoutPage(request):
     }
     return render(request, 'Checkout.html', Data) 
     
+
+
+
+
+
 
 
 
