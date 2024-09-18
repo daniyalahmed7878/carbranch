@@ -11,10 +11,18 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+
 import os
+
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+STRIPE_PUBLISHABLE_KEY=config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY=config('STRIPE_SECRET_KEY')
+LOCAL_DOMAIN=config('LOCAL_DOMAIN')
 
 
 # Quick-start development settings - unsuitable for production
@@ -64,6 +72,14 @@ INSTALLED_APPS = [
     'Quick_Book',
     'cart',
     'users',
+
+    'orders',
+
+    'Header',
+    'Footer',
+    'Newsletter',
+
+
 
 ]
 
@@ -175,7 +191,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+
+TIME_ZONE = "Asia/Karachi"
 
 USE_I18N = True
 
@@ -218,4 +235,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
+
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'malikqasim20051@gmail.com'
+EMAIL_HOST_PASSWORD = 'Haiderammar123'  # Use the app password here
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 

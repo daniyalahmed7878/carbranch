@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from django.core.paginator import Paginator
 from Main_Hero_Section.models import Main_Hero_Section
 from Default_Background.models import Default_Background
@@ -22,11 +22,27 @@ from Questions_About_Payment.models import Payment_Questions
 from cart.cart import Cart
 from datetime import datetime
 from users.models import UserProfile
+import stripe
+from django.conf import settings
+from datetime import timedelta
+from django.utils import timezone
+from users.models import UserProfile
+from django.http import JsonResponse
+from orders.models import Orders, OrderItem
+from Header.models import Header
+from django.core.mail import send_mail
+from Header.models import Header
+from Footer.models import Footer
+from django.core.mail import send_mail
+from django.conf import settings
+from Newsletter.models import Subscriber
+
+
 
   
   
 def homePage(request):
-
+    header = Header.objects.all()
     Main_Hero_Section_Data = Main_Hero_Section.objects.all()
     Main_Cars_Carousel_Data = Main_Cars_Carousel.objects.all()
     Counter_Section_Data= Counter_Section.objects.all()
@@ -36,8 +52,10 @@ def homePage(request):
     Background_Video_Data = Background_Video.objects.all()
     Blog_Data = Blog.objects.all()
     General_Questions_Data = General_Questions.objects.all()
+    footer= Footer.objects.all()
 
     Data= {
+        "header_data": header,
         "main_Hero_Section":Main_Hero_Section_Data,
         "main_Cars_Carousel":Main_Cars_Carousel_Data,
         "counter_Section":Counter_Section_Data,
@@ -46,28 +64,79 @@ def homePage(request):
         "Testimonial": Testimonial_Data,
         "Background_Video": Background_Video_Data,
         "Latest_Blog": Blog_Data,
-        "General_Questions" : General_Questions_Data     
+        "General_Questions" : General_Questions_Data,
+        "footer_data":footer,    
     }
     return render(request, 'index.html', Data)
+
+
+
+
+def addyourCarPage(request):
+    Default_Background_Data = Default_Background.objects.all()
+    Data= {
+            "default_background":Default_Background_Data,
+    }
+    return render(request, 'Add-Your-Car.html',Data)
+
+
+
+def addyourCar(request):
+
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        passengers = request.POST.get('passengers', '')
+        pod = request.POST.get('pod', '')
+        aom = request.POST.get('aom', '')
+        description = request.POST.get('description', '')
+
+        if not all([name, passengers, pod, aom, description]):
+            print("error")
+
+            return redirect('addyourcar')
+
+        try:
+            addcar = CARS(
+                name=name,
+                passengers=passengers,
+                pod=pod,
+                aom=aom,
+                description=description
+            )
+            addcar.save()
+            messages.success(request, "Success! Your message has been sent.")
+            return redirect('home')
+
+        except Exception as e:
+            print(f"Error saving contact: {e}")
+            print("ERROr")
+            return redirect('addyourcar')
+            
+    return redirect('addyourcar')
+
 
 
  
 
 
 def aboutPage(request):
+    header = Header.objects.all()
     Default_Background_Data = Default_Background.objects.all()
     Main_Cars_Carousel_Data = Main_Cars_Carousel.objects.all()
     Counter_Section_Data= Counter_Section.objects.all()
     Counter_Description_Data= About_Counter_Description.objects.all()
     Book_your_drive = Book_Your_Drive.objects.all()
-    top_items = Our_Team.objects.all()[:3]    
+    top_items = Our_Team.objects.all()[:3] 
+    footer= Footer.objects.all()   
     Data={
+        "header_data": header,
         "default_background":Default_Background_Data,
         "main_Cars_Carousel":Main_Cars_Carousel_Data,
         "counter_Section":Counter_Section_Data,
         "About_Description": Counter_Description_Data,
         "Book_Your_Drive_Section": Book_your_drive,
-        'top_3_cards': top_items
+        'top_3_cards': top_items,
+        "footer_data":footer,   
     }
 
     return render(request, 'about.html', Data) 
@@ -79,9 +148,13 @@ def aboutPage(request):
 
 
 def loginPage(request):
+    header = Header.objects.all()
     Default_Background_Data = Default_Background.objects.all()
+    footer= Footer.objects.all()  
     Data={
+        "header_data": header,
         "default_background":Default_Background_Data,
+        "footer_data":footer,   
     }
     if request.user.is_authenticated:
        return redirect('home')
@@ -89,9 +162,13 @@ def loginPage(request):
 
 
 def Create_accountPage(request):
+    header = Header.objects.all()
     Default_Background_Data = Default_Background.objects.all()
+    footer= Footer.objects.all() 
     Data={
+        "header_data": header,
         "default_background":Default_Background_Data,
+        "footer_data":footer, 
     }
     return render(request, 'create_account.html', Data) 
 
@@ -103,6 +180,10 @@ def Create_accountPageUser(request):
 
     if uname == '' or uemail == '' or upassword == ''  :
         messages.error(request, "Please fill all fields.")
+        return redirect('create_account')
+
+    if len(upassword) != 8:
+        messages.error(request, "Password must be exactly 8 characters long.")
         return redirect('create_account')
 
 
@@ -139,18 +220,23 @@ def logoutUser(request):
 
 
 def faqPage(request):
+    header = Header.objects.all()
     Default_Background_Data = Default_Background.objects.all()
     General_Questions_Data = General_Questions.objects.all()
     Payment_Questions_Data = Payment_Questions.objects.all()
+    footer= Footer.objects.all()  
     Data={
+        "header_data": header,
         "General_Questions" : General_Questions_Data,
         "Payment_questions" : Payment_Questions_Data,  
         "default_background":Default_Background_Data,
+        "footer_data":footer,   
     }
     return render(request, 'faq.html', Data) 
 
 
 def Our_carsPage(request):
+    header = Header.objects.all()
     Default_Background_Data = Default_Background.objects.all()
     Cars_Data = CARS.objects.all()
     Cars_Data= Paginator(Cars_Data, 6)
@@ -159,12 +245,15 @@ def Our_carsPage(request):
     totalpages = [x+1 for x in range(Cars_Data.num_pages)]
     Background_Video_Data = Background_Video.objects.all()
     Blog_Data = Blog.objects.all()
+    footer= Footer.objects.all()  
     Data= {
+        "header_data": header,
         "default_background":Default_Background_Data,
         "cars_Section": products,
         "total_Pages": totalpages,
         "Background_Video":Background_Video_Data,
         "Latest_Blog": Blog_Data,
+        "footer_data":footer,   
     }
     return render(request, 'Our_Cars.html', Data) 
 
@@ -172,28 +261,36 @@ def Our_carsPage(request):
 
 
 def Car_detailPage(request, id):
+    header = Header.objects.all()
     Default_Background_Data = Default_Background.objects.all()
     Cars_Data = CARS.objects.all()
     Car_1 = CARS.objects.get(id__exact=id)
+    footer= Footer.objects.all()  
     Data = {
+        "header_data": header,
         "default_background":Default_Background_Data,
         "Car_Data": Cars_Data,
         "One_Car": Car_1,
-        "current_id": int(id)
+        "current_id": int(id),
+        "footer_data":footer,  
     }
     return render(request, 'Car_Details.html', Data) 
 
 
 def reservationPage(request, id):
+    header = Header.objects.all()
     Cars_Data = CARS.objects.all()
     Cars_Data= Paginator(Cars_Data, 6)
     page = request.GET.get('page')
     products = Cars_Data.get_page(page)
     Car_1 = CARS.objects.get(id__exact=id)
+    footer= Footer.objects.all()  
     Data = {
+        "header_data": header,
         "cars_Section": products,
         "One_Car": Car_1,
-        "current_id_2": int(id)
+        "current_id_2": int(id),
+        "footer_data":footer,  
     }
     return render(request, 'reservation.html', Data) 
 
@@ -215,10 +312,16 @@ def reservationPage(request, id):
 #     return render(request, 'Checkout.html', Data) 
 
 def checkout_view(request):
+    header = Header.objects.all()
+    footer= Footer.objects.all()  
     cart = request.session.get('cart', {})
     subtotal = sum(float(item['price']) * item['quantity'] for item in cart.values())
+
     
-    rental_days = 1  # Default value
+
+    rental_days = 1 # Default value
+
+    rental_days = 1  
     if request.method == 'POST':
         pickup_date = request.POST.get('pickup_date')
         return_date = request.POST.get('return_date')
@@ -228,8 +331,10 @@ def checkout_view(request):
             rental_days = (return_date - pickup_date).days
     
     context = {
+        "header_data": header,
         'subtotal': subtotal,
-        'rental_days': rental_days,
+        'Rental_days': rental_days,
+        "footer_data":footer,  
     }
     return render(request, 'checkout.html', context)
 
@@ -278,7 +383,7 @@ def process_checkout(request):
             return redirect('cart')  
         request.session['cart'] = {}
 
-        return redirect('order_confirmation')
+        return redirect('process_checkout')
 
     return redirect('checkout')
 
@@ -286,33 +391,218 @@ def process_checkout(request):
 
 
 
-# def contactPage(request):
-#     return render(request, 'Contact.html') 
 
-# def saveContact(request):
-#      try:
+def checkout_session(request):
+    cart = Cart(request)
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    items = list(cart.session.values())[3]
+    base_amount = 1000  # Amount in PKR
+    tax_rate = 0.10
+    aftertax = base_amount + (base_amount * tax_rate)
+    
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[{
+                'price_data': {
+                    'currency': 'pkr',
+                    'product_data': {
+                        'name': 'Total Amount',
+                    },
+                    'unit_amount': int(aftertax * 100),  # Convert to paisa
+                },
+                'quantity': 1,
+            }],
+            
+            mode='payment',
           
-#         firstname=request.POST.get('firstname')
-#         lastname=request.POST.get('lastname')
-#         email=request.POST.get('email') 
-#         messagesubject=request.POST.get('messagesubject')
-#         message=request.POST.get('message')
-#         if firstname == '' or lastname == '' or email == '' or messagesubject == '' or message == '' :
-#             messages.error(request, "Not found. Please fill all fields.") 
-#             return render(request, 'Contact.html')
-#         contact=Contact(firstname=firstname, lastname=lastname, email=email, messagesubject=messagesubject, message=message)
-#         messages.success(request, "Success! Your message has been sent.")
-#         contact.save()
-#      except:
-#         print('error') 
-#      return render(request, 'Contact.html')
+            success_url='http://127.0.0.1:8000/success',
+            cancel_url='http://127.0.0.1:8000/cancel',
+        )
+      
+        # if checkout_session:
+        #     order = Orders.objects.create(user=request.user, total_amount=aftertax, payment_id=checkout_session['id'], payment_status='Paid')
+        #     if order:
+        #         for item in items:
+        #             OrderItem.objects.create(order=order, product=item['product'], quantity=item['quantity'], price=item['price'])
+        # print(checkout_session)
+        order = Orders.objects.create(
+        user=request.user,
+        total_price=aftertax / 100,  # Convert cents back to PKR
+        payment_status="unpaid",
+    )
+
+        return redirect(checkout_session.url, code=303)
+
+    except Exception as e:
+       
+        return JsonResponse({'error': str(e)}, status=400)
+
+
+
+
+
+
+
+
+
+
+
+
+# def checkout_session(request):
+#     cart = Cart(request)
+#     stripe.api_key = settings.STRIPE_SECRET_KEY
+#     subtotal = 0
+#     shipping_fee = 200 * 100  # Shipping fee in cents (200 PKR)
+#     total = 0
+
+#     line_items = []
+#     session_cart = cart.session.get("cart", {})
+
+#     if isinstance(session_cart, dict) and session_cart:
+#         for item in session_cart.values():
+#             try:
+#                 price = int(item["price"]) * 100  # Convert PKR to cents
+#                 quantity = int(item["quantity"])
+#                 subtotal += price * quantity
+
+#                 # Add each product as a line item for Stripe
+#                 line_items.append(
+#                     {
+#                         "price_data": {
+#                             "currency": "pkr",
+#                             "product_data": {
+#                                 "name": total,
+#                             },
+#                             "unit_amount": price,
+#                         },
+#                         "quantity": quantity,
+#                     }
+#                 )
+#             except (ValueError, KeyError) as e:
+#                 print(f"Error processing item: {e}")
+
+#         total = subtotal + shipping_fee
+
+#     # Create an order in your system
+#     order = Orders.objects.create(
+#         user=request.user,
+#         total_price=total / 100,  # Convert cents back to PKR
+#         payment_status="unpaid",
+#     )
+
+#     # Save each item in OrderItem model
+#     for item in session_cart.values():
+#         try:
+#             price = int(item["price"]) * 100  # Convert PKR to cents
+#             quantity = int(item["quantity"])
+#             OrderItem.objects.create(
+#                 order=order,
+#                 product_name=item["name"],
+#                 quantity=quantity,
+#                 price=price / 100,  # Convert cents back to PKR
+#             )
+#         except (ValueError, KeyError) as e:
+#             print(f"Error saving item: {e}")
+
+#     # Create a Stripe checkout session with client_reference_id as the order ID
+#     checkout_session = stripe.checkout.Session.create(
+#         line_items=line_items,
+#         mode="payment",
+#         success_url="https://nullxcoder.xyz/success",
+#         cancel_url="https://nullxcoder.xyz/cancel",
+#         client_reference_id=order.id,  # Pass the order ID for matching in webhook
+#         shipping_options=[
+#             {
+#                 "shipping_rate_data": {
+#                     "type": "fixed_amount",
+#                     "fixed_amount": {
+#                         "amount": shipping_fee,
+#                         "currency": "pkr",
+#                     },
+#                     "display_name": "Standard Shipping",
+#                     "delivery_estimate": {
+#                         "minimum": {"unit": "business_day", "value": "5"},
+#                         "maximum": {"unit": "business_day", "value": "7"},
+#                     },
+#                 }
+#             }
+#         ],
+#     )
+
+#     return redirect(checkout_session.url, code=303)
+
+
+
+
+
+
+
+
+
+
+
+
+
+def orderStatus(request):
+    # Fetch all orders for the logged-in user, including their items
+    header = Header.objects.all()
+    Default_Background_Data = Default_Background.objects.all()
+    footer= Footer.objects.all()  
+    orders = Orders.objects.filter(user=request.user).prefetch_related('orderitem_set')
+    profile_picture = None
+    city = None
+    country = None
+    address = None
+    phone_no = None
+
+    if request.user.is_authenticated:
+        userdata, created = UserProfile.objects.get_or_create(user=request.user)
+
+
+    # If no orders exist, render with no_order flag
+    if not orders.exists():
+        shipping_date = timezone.now() + timedelta(days=7)  # Still calculate the general shipping date for display
+        return render(request, 'orderstatus.html', {
+            'no_order': True,
+            'shipping_date': shipping_date,
+            "header_data": header,
+            "default_background":Default_Background_Data,
+            "footer_data":footer,  
+
+        })
+
+    for order in orders:
+        order.expected_delivery = order.created_at + timedelta(days=7)
+
+    return render(request, 'orderstatus.html', {
+        'orders': orders,
+        "header_data": header,
+        "default_background":Default_Background_Data,
+        "footer_data":footer,  
+
+    })
+
+def delete_order(request, order_id):
+    order = get_object_or_404(Orders, id=order_id, user=request.user)
+    if request.method == 'POST':
+        order.delete()
+        return redirect('order_status') 
+
+
+
+
+
 
 def contactPage(request):
+    header = Header.objects.all()
     Default_Background_Data = Default_Background.objects.all()
     General_Questions_Data = General_Questions.objects.all()
+    footer= Footer.objects.all()  
     Data={
+        "header_data": header,
         "default_background":Default_Background_Data,
-        "General_Questions" : General_Questions_Data   
+        "General_Questions" : General_Questions_Data,
+        "footer_data":footer,     
     }
     return render(request, 'Contact.html', Data) 
 
@@ -351,38 +641,50 @@ def saveContact(request):
 
 
 def Our_teamPage(request):
+    header = Header.objects.all()
     Default_Background_Data = Default_Background.objects.all()
     Team_Cards = Our_Team.objects.all()
     Background_Video_Data = Background_Video.objects.all()
     Testimonial_Data = Testimonial.objects.all()
+    footer= Footer.objects.all() 
     Data={
+        "header_data": header,
         "default_background":Default_Background_Data,
         "Team_Cards_Data":Team_Cards,
         "Background_Video":Background_Video_Data,
-        "Testimonial": Testimonial_Data
+        "Testimonial": Testimonial_Data,
+        "footer_data":footer,  
     }
     return render(request, 'Our_Team.html',Data) 
 
 
 def blogPage(request):
+    header = Header.objects.all()
     Default_Background_Data = Default_Background.objects.all()
+    footer= Footer.objects.all() 
     Blog_Data = Blog.objects.all()
     Blog_Data= Paginator(Blog_Data, 6)
     page = request.GET.get('page')
     products = Blog_Data.get_page(page)
     totalpages = [x+1 for x in range(Blog_Data.num_pages)]
     Data = {
+        "header_data": header,
         "default_background":Default_Background_Data,
         "Blog":products,
         "total_Pages": totalpages,
+        "footer_data":footer,  
     }
     return render(request, 'Blog.html',Data) 
 
 
 def Single_postPage(request, id):
+    header = Header.objects.all()
     blog = Blog.objects.get(id__exact=id)
+    footer= Footer.objects.all() 
     Data = {
+        "header_data": header,
         "One_Blog": blog,
+        "footer_data":footer, 
     }
     return render(request, 'Single_Post.html', Data) 
 
@@ -496,37 +798,37 @@ def cart_detail(request):
 #     }
 #     return render(request, 'Reservation.html', Data)
 def cart_detail(request):
+    header = Header.objects.all()
+    footer= Footer.objects.all() 
     cart = Cart(request)
     bookings_total = 0
 
     session_values = list(cart.session.values())
 
-    # Check if there are enough items in session values
     if len(session_values) > 5:
         bookings = session_values[5]
     else:
-        bookings = []  # Jab 6 items nahi milte, bookings ko empty list set karo
-
-    # Only calculate bookings_total if there are bookings
+        bookings = []  
     if bookings:
         for book in bookings:
             bookings_total = bookings_total + int(bookings[book]["quantity"])
 
-    # Check if there are enough items in session values for items as well
     if len(session_values) > 5:
         items = session_values[5]
     else:
-        items = []  # Jab 6 items nahi milte, to items ko empty list set karo
+        items = []  
 
     subtotal = 0
-    if items:  # Only calculate if items exist
+    if items:  
         for item in items:
             subtotal = subtotal + int(items[item]['price']) * items[item]['quantity']
 
 
     Data = {
+        "header_data": header,
         "subtotal": subtotal,
-        "bookings": bookings_total
+        "bookings": bookings_total,
+        "footer_data":footer, 
     }
 
 
@@ -534,6 +836,17 @@ def cart_detail(request):
 
 
  
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -547,6 +860,18 @@ def successPage(request):
 
 def cancelPage(request):
     return render(request, 'Cancel.html')
+
+
+
+
+def Booking_Failed_Page(request):
+    return render(request, 'Booking_Failed.html')
+
+
+
+
+def Booking_Corfirmed_Page(request):
+    return render(request, 'Quick_Booking_Confirmed.html')
 
 
 
@@ -571,14 +896,12 @@ def cancelPage(request):
 def quick_Book(request):
     if request.method == 'POST':
         name = request.POST.get('name', '')
-        car = request.POST.get('car','')
+        car = request.POST.get('car_name_dropdown', '') 
         phone = request.POST.get('phone', '')
         email = request.POST.get('email', '')
 
-
-        '''if not all([name, car, phone, email]):
-            messages.error(request, "Not found. Please fill all fields.")
-            return redirect('cancel')'''
+        if not all([name, car, phone, email]):
+            return redirect('Booking-Failed')
 
         try:
             contact = Quick_Book(
@@ -588,13 +911,73 @@ def quick_Book(request):
                 email=email
             )
             contact.save()
-            messages.success(request, "Success! Your message has been sent.")
-            return redirect('home')
+            '''send_mail(
+                'Your Booking Confirmation',
+                f'Hello {Quick_Book.name},\n\nThank you for your booking.\n\nMessage: hi hi',
+                'malikqasim20051@gmail.com',  # Replace with your from email address
+                [Quick_Book.email],
+                fail_silently=False,
+            )'''
+            return redirect('Booking-Confirmed')
+
 
         except Exception as e:
-            print(f"Error saving contact: {e}")
-            messages.error(request, "An error occurred. Please try again.")
-            return redirect('home')
+            return redirect('Booking-Failed')
             
 
+
+
+
+
+
     return redirect('home')
+
+
+
+
+
+
+def subscribe(request):
+    success_message = ''
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email:
+            # Check if the email already exists
+            if not Subscriber.objects.filter(email=email).exists():
+                # Create a new subscriber
+                Subscriber.objects.create(email=email)
+                
+                # Send a confirmation email to the subscriber
+                send_confirmation_email(email)
+                
+                success_message = 'Thank you for subscribing!'
+            else:
+                success_message = 'You are already subscribed.'
+    
+    # Render the page with the success message
+    return render(request, 'index.html', {'success_message': success_message})
+
+def send_confirmation_email(email):
+    subject = 'Subscription Confirmation'
+    message = 'Thank you for subscribing to our newsletter!'
+    from_email = settings.DEFAULT_FROM_EMAIL  # Make sure this is set in your settings
+    recipient_list = [email]
+    
+    send_mail(
+        subject,
+        message,
+        from_email,
+        recipient_list,
+        fail_silently=False,
+    )
+
+
+
+
+
+
+
+
+
+
+
