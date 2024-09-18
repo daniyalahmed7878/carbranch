@@ -444,7 +444,7 @@ def cart_clear(request):
 
 
 # def cart_detail(request):
-<<<<<<< HEAD
+
 #     # cart= Cart(request)
 #     # # bookings_total = 0
 #     # # bookings= list(cart.session.values())[5]
@@ -480,7 +480,6 @@ def cart_detail(request):
     else:
         subtotal = 0  # Handle case where index 5 does not exist
 
-=======
 #     cart= Cart(request)
 #     bookings_total = 0
 #     bookings= list(cart.session.values())[5]
@@ -524,18 +523,17 @@ def cart_detail(request):
         for item in items:
             subtotal = subtotal + int(items[item]['price']) * items[item]['quantity']
 
->>>>>>> a8076e8af39822bc10ac011f5f6bdba4a0046406
+
     Data = {
         "subtotal": subtotal,
         "bookings": bookings_total
     }
-<<<<<<< HEAD
+
 
     return render(request, 'Reservation.html', Data)
-=======
->>>>>>> a8076e8af39822bc10ac011f5f6bdba4a0046406
 
-    return render(request, 'Reservation.html', Data)
+
+ 
 
 
 
