@@ -15,6 +15,7 @@ from pathlib import Path
 import os
 
 from decouple import config
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -72,12 +73,11 @@ INSTALLED_APPS = [
     'Quick_Book',
     'cart',
     'users',
-
     'orders',
-
     'Header',
     'Footer',
     'Newsletter',
+    'Add_Your_Car_Section',
 
 
 
@@ -243,7 +243,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'malikqasim20051@gmail.com'
-EMAIL_HOST_PASSWORD = 'Haiderammar123'  # Use the app password here
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# EMAIL_HOST_USER = 'malikqasim20051@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Haiderammar123'  # Use the app password here
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+EMAIL_HOST_USER = 'mmq.malikqasim@gmail.com'
+EMAIL_HOST_PASSWORD = 'wuvhvwlmsdnhyfnf'  # Use the app password here
 
