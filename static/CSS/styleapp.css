@@ -4301,7 +4301,7 @@ textarea {
 
 
 .checkout-Page .btn-continue:hover {
-    background-color: #d63400;
+    background-color: var(--black-color);
 
 }
 
