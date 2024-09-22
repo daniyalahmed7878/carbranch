@@ -33,10 +33,10 @@ LOCAL_DOMAIN=config('LOCAL_DOMAIN')
 SECRET_KEY = 'django-insecure-b86s0n^!i&n1%$(*3owf%$+5r&grdari4#zc@=3hsw)k+yp3+e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
-ALLOWED_HOSTS = ['thecarrental.site']
+ALLOWED_HOSTS = ['*']
 
 # ALLOWED_HOSTS = ['*']
 
