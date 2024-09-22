@@ -4220,18 +4220,18 @@ textarea {
 }
 
 
-.checkout-Page .checkout-container {
+/* .checkout-Page .checkout-container {
     display: flex;
     gap: 30px;
     background: white;
-}
-/* .checkout-container{
+} */
+.checkout-container{
     background: var(--white-color);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 80%;
-} */
+}
 
 .checkout-Page .shipping-info, .order-summary {
     flex: 1;

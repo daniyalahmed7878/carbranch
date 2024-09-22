@@ -360,7 +360,7 @@ def checkout_view(request):
         'Rental_days': rental_days,
         "footer_data":footer,  
     }
-    return render(request, 'checkout.html', context)
+    return render(request, 'Checkout.html', context)
 
 
 
